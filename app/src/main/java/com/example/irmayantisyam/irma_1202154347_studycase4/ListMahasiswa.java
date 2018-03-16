@@ -1,7 +1,9 @@
 package com.example.irmayantisyam.irma_1202154347_studycase4;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -47,12 +49,20 @@ public class ListMahasiswa extends AppCompatActivity {
         protected void onPreExecute(){ //method yang digunakan sebelum AsyncTask dimulai
             super.onPreExecute();
 
-            progres.setMessage("Tunggu beberapa saat"); //Pesan pada AsyncTask
+            progres.setTitle("Tunggu beberapa saat"); //Pesan pada AsyncTask
             progres.setIndeterminate(false); //mengatur tampilan progress
             progres.setProgress(0); //mengatur ukuran minimal dari progres
             progres.setMax(100); //mengatur ukuran full atau maksimal progress
             //sehingga artinya, progres loading akan dimulai dari 0 hingga 100
-            progres.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL); //mengatur arah loading progress, yaitu horizontal (mendatar)
+            progres.setProgressStyle(ProgressDialog.STYLE_SPINNER); //mengatur arah loading progress
+            progres.setCancelable(true);
+            progres.setButton(DialogInterface.BUTTON_NEGATIVE, "Batalkan", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    progres.dismiss();
+                    getData.this.cancel(true);
+                }
+            });
             progres.show(); //method untuk menampilkan progres
         }
 
@@ -64,10 +74,17 @@ public class ListMahasiswa extends AppCompatActivity {
             String [] mahasiswa = getResources().getStringArray(R.array.mahasiswa);
             //membuat pengkondisian untuk menyimpan arrah ke dalam variabel a
             for (int a=0; a<mahasiswa.length; a++){ //inisiasi kondisi
-                long persen = 100L*a/mahasiswa.length; //membuat formul untuk lama persenan pernama-nya
+                final long persen = 100L*a/mahasiswa.length; //membuat formul untuk lama persenan pernama-nya
+                final String nama = mahasiswa[a];
                 //mengatur ketika meload satu nama berapa persen yang akan ditampilkan, dan disesuaikan dengan progres bar
                 try{
-                    progres.setProgress((int)persen); //mengatur progresna
+                    Runnable gantipesan = new Runnable() {
+                        @Override
+                        public void run() {
+                            progres.setMessage((int)persen+"% - Adding name - "+nama);
+                        }
+                    };
+                    runOnUiThread(gantipesan);
                     Thread.sleep(250); //mengatur waktu delay
                     list.add(mahasiswa[a]); //menambahkan item ke dalam variabel yang memuat arraylist
                 } catch (InterruptedException e){ //ketika eksekusi gagal
