@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">IRMA_1202154347_StudyCase4</string>
+    <string-array name="mahasiswa"> //string yang berisikan nama-nama mahasiswa yang akan dipanggil nanti
+        <item>Irmayanti Syam</item>
+        <item>Aldi Syahendra</item>
+        <item>I Dewa Ayu Lalita Marmika</item>
+        <item>Jimly Asshidiqy</item>
+        <item>Ernadila Sukmadinata</item>
+        <item>Dicky Yudha Handika</item>
+        <item>Syafirah Fauziah</item>
+        <item>Abel Junando</item>
+        <item>Binar Binari Ahya</item>
+        <item>Anandika Nur Iman</item>
+        <item>Regina Yusticia Firdaus</item>
+        <item>Gentur Cipto</item>
+        <item>Angela Malau</item>
+        <item>Alfian</item>
+        <item>Julia Visha Anugra</item>
+        <item>Wani Wahdania</item>
+    </string-array>
+</resources>
